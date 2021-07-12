@@ -1,0 +1,30 @@
+<MyWidget>
+    name:name
+    country:country
+    fav_color:fav_color
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Name"
+            TextInput:
+                id: name
+                multiline: True
+            Label:
+                text: "Country"
+                id: country
+            TextInput:
+                multiline: True
+            Label:
+                text: "Favourite Color"
+                id: fav_color
+            TextInput:
+                multiline: True
+        Button:
+            text: "Submit"
+            font_size: 56
+            on_press: root.press_submit()
