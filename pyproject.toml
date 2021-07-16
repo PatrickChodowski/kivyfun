@@ -8,6 +8,7 @@ authors = ["patrick <chodowski.patrick@chalhoub.com>"]
 python = "^3.8"
 Kivy = "^2.0.0"
 kivymd = "^0.104.2"
+youtube_dl = "^2021.6.6"
 
 [tool.poetry.dev-dependencies]
 
