@@ -5,13 +5,19 @@ from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from youtube_converter import Youtube
 import os
-from kivy.core.audio import SoundLoader
-from kivy.uix.filechooser import FileChooser, FileChooserListView
-
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 Window.size = (400, 500)
 y = Youtube()
+
+Builder.load_string('''
+<FileChooserListView>:
+    canvas.before:
+        Color:
+            rgba: 0,0.8,0.8,1
+        Rectangle:
+            size: self.size
+''')
 
 
 class DownloadScreen(MDScreen):
@@ -30,6 +36,9 @@ class DownloadScreen(MDScreen):
 class SongPlayerScreen(MDScreen):
     def __init__(self, **kwargs):
         super(SongPlayerScreen, self).__init__(**kwargs)
+
+    def selected(self, filename):
+        print(filename)
 
     def list_music(self) -> list:
         song_list = list()

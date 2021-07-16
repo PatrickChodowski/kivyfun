@@ -47,15 +47,24 @@ Screens:
 
 
 <SongPlayerScreen>:
+    id: songplayer_screen
     name:"songplayer"
-    FileChooserListView:
-        id: filechooser
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
 
-    Button:
-        text: "Download"
-        font_size: 30
-        on_release: app.root.current = "download"
-        background_color: utils.get_color_from_hex('#0E2240')
-        size: 800, 150
-        size_hint: None, None
+
+        FileChooserListView:
+            id: filechooser
+            rootpath: "./downloads"
+            on_selection: songplayer_screen.selected(filechooser.selection)
+
+
+        Button:
+            text: "Download"
+            font_size: 30
+            on_release: app.root.current = "download"
+            background_color: utils.get_color_from_hex('#0E2240')
+            size: 800, 150
+            size_hint: None, None
 
