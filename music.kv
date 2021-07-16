@@ -8,41 +8,45 @@ Screens:
     name:"download"
     youtube_link:youtube_link
 
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
 
-    MDToolbar:
-        title: "Music on the go"
-        pos_hint:{"top":1}
-        left_action_items: [["menu", lambda x: app.callback()]]
-        right_action_items: [["rotate-3d-variant", lambda x: app.callback()]]
+        MDToolbar:
+            title: "Music on the go"
+            pos_hint:{"top":1}
+            left_action_items: [["menu", lambda x: app.callback()]]
+            right_action_items: [["rotate-3d-variant", lambda x: app.callback()]]
 
 
-    MDTextField:
-        id: youtube_link
-        background_color: utils.get_color_from_hex('#1D428A')
-        color: "black"
-        helper_text: "Paste the link of youtube video you want to download music from"
-        helper_text_mode: "on_focus"
-        multiline: False
-        icon_right: 'youtube'
-        pos_hint: {"center_x": 0.5, "center_y": 0.45}
-        size_hint: 0.8, 0.12
-        max_height: "200dp"
+        MDTextField:
+            id: youtube_link
+            background_color: utils.get_color_from_hex('#1D428A')
+            color: "black"
+            helper_text: "Paste the link of youtube video you want to download music from"
+            helper_text_mode: "on_focus"
+            multiline: False
+            icon_right: 'youtube'
+            size: 0.8, 1
+            min_height: "300dp"
 
-    Button:
-        text: "Submit"
-        font_size: 30
-        on_press: root.download_youtube_url()
-        background_color: utils.get_color_from_hex('#0E2240')
-        size: 800, 150
-        size_hint: None, None
 
-    Button:
-        text: "Songs"
-        font_size: 30
-        on_release: app.root.current = "songplayer"
-        background_color: utils.get_color_from_hex('#0E2240')
-        size: 800, 150
-        size_hint: None, None
+
+        Button:
+            text: "Submit"
+            font_size: 30
+            on_press: root.download_youtube_url()
+            background_color: utils.get_color_from_hex('#0E2240')
+            size: 800, 150
+            size_hint: None, None
+
+        Button:
+            text: "Songs"
+            font_size: 30
+            on_release: app.root.current = "songplayer"
+            background_color: utils.get_color_from_hex('#0E2240')
+            size: 800, 150
+            size_hint: None, None
 
 
 
@@ -58,7 +62,6 @@ Screens:
             id: filechooser
             rootpath: "./downloads"
             on_selection: songplayer_screen.selected(filechooser.selection)
-
 
         Button:
             text: "Download"
