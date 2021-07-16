@@ -13,3 +13,6 @@ todo (fornow)
 - bit better layout
 - how to pause the song
 - and how to send it as an app
+- separate song playing from rest of the app process
+- file list doesnt refresh
+- store the data of author, song title etc. on download -> read all metada on download

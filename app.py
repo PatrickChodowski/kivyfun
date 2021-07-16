@@ -42,7 +42,6 @@ class SongPlayerScreen(MDScreen):
 # how to play m4a
 # https://www.reddit.com/r/kivy/comments/4p12zz/problem_with_coreaudiosoundloader/d4jkpcx/
     def selected(self, filename):
-        print(filename)
         try:
             print(filename[0])
             sound = SoundLoader.load(filename[0])
