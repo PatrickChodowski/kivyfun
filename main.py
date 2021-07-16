@@ -1,6 +1,9 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
+from kivy.lang import Builder
+
+Builder.load_file('kivyfun.kv')
 
 
 class MyWidget(Widget):
@@ -18,10 +21,10 @@ class MyWidget(Widget):
         self.fav_color.text = ""
 
 
-class KivyFun(App):
+class Main(App):
     def build(self):
         return MyWidget()
 
 
 if __name__ == "__main__":
-    KivyFun().run()
+    Main().run()

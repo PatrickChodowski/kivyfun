@@ -1,3 +1,8 @@
+#:import utils kivy.utils
+<Label>
+    font_size: 20
+
+
 <MyWidget>
     name:name
     country:country
@@ -28,3 +33,4 @@
             text: "Submit"
             font_size: 56
             on_press: root.press_submit()
+            background_color: utils.get_color_from_hex('#0E2240')
