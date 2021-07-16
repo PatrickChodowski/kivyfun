@@ -1,9 +1,11 @@
 #:import utils kivy.utils
-<Label>
-    font_size: 40
 
+Screens:
+    DownloadScreen:
+    SongPlayerScreen:
 
-<PrimaryScreen>
+<DownloadScreen>:
+    name:"download"
     youtube_link:youtube_link
 
 
@@ -29,7 +31,31 @@
     Button:
         text: "Submit"
         font_size: 30
-        on_press: root.press_submit()
+        on_press: root.download_youtube_url()
         background_color: utils.get_color_from_hex('#0E2240')
         size: 800, 150
         size_hint: None, None
+
+    Button:
+        text: "Songs"
+        font_size: 30
+        on_release: app.root.current = "songplayer"
+        background_color: utils.get_color_from_hex('#0E2240')
+        size: 800, 150
+        size_hint: None, None
+
+
+
+<SongPlayerScreen>:
+    name:"songplayer"
+    FileChooserListView:
+        id: filechooser
+
+    Button:
+        text: "Download"
+        font_size: 30
+        on_release: app.root.current = "download"
+        background_color: utils.get_color_from_hex('#0E2240')
+        size: 800, 150
+        size_hint: None, None
+
