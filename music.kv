@@ -1,0 +1,35 @@
+#:import utils kivy.utils
+<Label>
+    font_size: 40
+
+
+<PrimaryScreen>
+    youtube_link:youtube_link
+
+
+    MDToolbar:
+        title: "Music on the go"
+        pos_hint:{"top":1}
+        left_action_items: [["menu", lambda x: app.callback()]]
+        right_action_items: [["rotate-3d-variant", lambda x: app.callback()]]
+
+
+    MDTextField:
+        id: youtube_link
+        background_color: utils.get_color_from_hex('#1D428A')
+        color: "black"
+        helper_text: "Paste the link of youtube video you want to download music from"
+        helper_text_mode: "on_focus"
+        multiline: False
+        icon_left: 'youtube'
+        pos_hint: {"center_x": 0.5, "center_y": 0.45}
+        size_hint: 0.8, 0.12
+        max_height: "200dp"
+
+    Button:
+        text: "Submit"
+        font_size: 30
+        on_press: root.press_submit()
+        background_color: utils.get_color_from_hex('#0E2240')
+        size: 800, 150
+        size_hint: None, None
