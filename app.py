@@ -39,26 +39,33 @@ class SongPlayerScreen(MDScreen):
     def __init__(self, **kwargs):
         super(SongPlayerScreen, self).__init__(**kwargs)
 
-# how to play m4a
-# https://www.reddit.com/r/kivy/comments/4p12zz/problem_with_coreaudiosoundloader/d4jkpcx/
+        self.current_sound = None
+
     def selected(self, filename):
         try:
             print(filename[0])
-            sound = SoundLoader.load(filename[0])
-            if sound:
-                print("Sound found at %s" % sound.source)
-                print("Sound is %.3f seconds" % sound.length)
-                sound.play()
+            self.current_sound = SoundLoader.load(filename[0])
+            if self.current_sound:
+                print("Sound found at %s" % self.current_sound.source)
+                print("Sound is %.3f seconds" % self.current_sound.length)
+                print(type(self.current_sound)) #<class 'kivy.core.audio.audio_sdl2.SoundSDL2'>
+                self.current_sound.play()
         except:
             pass
 
-    def list_music(self) -> list:
-        song_list = list()
-        for file in os.listdir('./Downloads'):
-            if file.endswith(".m4a"):
-                song_list.append(file)
-        print(song_list)
-        return song_list
+    def play(self):
+        self.current_sound.play()
+
+    def stop(self):
+        self.current_sound.stop()
+
+    # def list_music(self) -> list:
+    #     song_list = list()
+    #     for file in os.listdir('./Downloads'):
+    #         if file.endswith(".m4a"):
+    #             song_list.append(file)
+    #     print(song_list)
+    #     return song_list
 
 
 class Screens(ScreenManager):
@@ -69,7 +76,6 @@ class MusicApp(MDApp):
     def build(self):
         kv = Builder.load_file('music.kv')
         return kv
-        #return PrimaryScreen()
 
 
 if __name__ == "__main__":
