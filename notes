@@ -11,6 +11,15 @@ click on applications/python3.8/install.certificates.command
 todo (fornow)
 - bit better layout
 - and how to send it as an app
-- separate song playing from rest of the app process
-- file list doesnt refresh
+- feedback that song started download
+- IMPORTANT BUG: finished song basically closes the app
+
+- file list doesnt refresh automatically
 - store the data of author, song title etc. on download -> read all metada on download
+
+
+#https://kivy.org/doc/stable/_modules/kivy/core/audio.html
+
+
+# Values: sdl2, gstplayer, ffpyplayer, pygame, avplayer
+#

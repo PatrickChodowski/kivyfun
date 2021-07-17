@@ -64,7 +64,7 @@ Screens:
             on_selection: songplayer_screen.selected(filechooser.selection)
 
         GridLayout:
-            cols:2
+            cols:6
             size: root.width, 100
 
             Button:
@@ -72,7 +72,7 @@ Screens:
                 font_size: 30
                 on_release: songplayer_screen.play()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 400, 100
+                size: 120, 100
                 size_hint: None, None
 
             Button:
@@ -80,8 +80,41 @@ Screens:
                 font_size: 30
                 on_release: songplayer_screen.stop()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 400, 100
+                size: 120, 100
                 size_hint: None, None
+
+            Button:
+                text: "play_pos"
+                font_size: 30
+                on_release: songplayer_screen.play_pos()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 120, 100
+                size_hint: None, None
+
+            Button:
+                text: "refresh"
+                font_size: 30
+                on_release: filechooser._update_files()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 120, 100
+                size_hint: None, None
+
+            Button:
+                text: "Up"
+                font_size: 30
+                on_release: songplayer_screen.volume_up()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 120, 100
+                size_hint: None, None
+
+            Button:
+                text: "Down"
+                font_size: 30
+                on_release: songplayer_screen.volume_down()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 120, 100
+                size_hint: None, None
+
 
 
         Button:

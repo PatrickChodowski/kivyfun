@@ -1,11 +1,12 @@
+import os
+os.environ['KIVY_AUDIO'] = 'ffpyplayer'
+from selected_song import SelectedSong
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
-from kivy.core.audio import SoundLoader
 from youtube_converter import Youtube
-import os
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 Window.size = (400, 500)
@@ -39,25 +40,61 @@ class SongPlayerScreen(MDScreen):
     def __init__(self, **kwargs):
         super(SongPlayerScreen, self).__init__(**kwargs)
 
-        self.current_sound = None
+        self.song = None
+        self.filename = None
 
     def selected(self, filename):
+        filename = filename[0]
+        print(f'new filename: {filename}')
         try:
-            print(filename[0])
-            self.current_sound = SoundLoader.load(filename[0])
-            if self.current_sound:
-                print("Sound found at %s" % self.current_sound.source)
-                print("Sound is %.3f seconds" % self.current_sound.length)
-                print(type(self.current_sound)) #<class 'kivy.core.audio.audio_sdl2.SoundSDL2'>
-                self.current_sound.play()
-        except:
-            pass
+            if (self.filename != filename) & (self.filename is not None):
+                print('new filename')
+                self.song.stop()
+                self.song = None
+
+                self.song = SelectedSong(filename=filename)
+                self.filename = filename
+                if self.song:
+                    self.song.play()
+
+            elif (self.filename == filename) & (self.filename is not None):
+                print('same filename')
+                self.song.stop()
+                self.song.play()
+
+            elif self.filename is None:
+                print('current filename is empty')
+                self.song = SelectedSong(filename=filename)
+                self.song.play()
+                self.filename = filename
+
+        except Exception as e:
+            print(e)
 
     def play(self):
-        self.current_sound.play()
+        self.song.play()
 
     def stop(self):
-        self.current_sound.stop()
+        self.song.stop()
+
+    def play_pos(self, position: int = None):
+        if position is None:
+            # if no argument provided, then use paused time
+            print(f"starting from {self.song.paused_time}")
+            self.song.play_pos(self.song.paused_time)
+        else:
+            # if argument provided, play from the position provided
+            print(f"starting from {position}")
+            self.song.play_pos(position)
+
+    def volume_up(self):
+        self.song.volume_up(0.1)
+
+    def volume_down(self):
+        self.song.volume_down(0.1)
+
+
+
 
     # def list_music(self) -> list:
     #     song_list = list()

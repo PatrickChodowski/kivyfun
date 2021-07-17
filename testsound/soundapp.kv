@@ -1,0 +1,45 @@
+#:import utils kivy.utils
+
+Screens:
+    SongPlayerScreen:
+
+<SongPlayerScreen>:
+    id: songplayer_screen
+    name:"songplayer"
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+
+        FileChooserListView:
+            id: filechooser
+            rootpath: "../downloads"
+            on_selection: songplayer_screen.selected(filechooser.selection)
+
+        GridLayout:
+            cols:3
+            size: root.width, 100
+
+            Button:
+                text: "Play"
+                font_size: 30
+                on_release: songplayer_screen.play()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 133, 100
+                size_hint: None, None
+
+            Button:
+                text: "Stop"
+                font_size: 30
+                on_release: songplayer_screen.stop()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 133, 100
+                size_hint: None, None
+
+            Button:
+                text: "play_pos"
+                font_size: 30
+                on_release: songplayer_screen.play_pos()
+                background_color: utils.get_color_from_hex('#0E2240')
+                size: 133, 100
+                size_hint: None, None
