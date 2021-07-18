@@ -9,13 +9,12 @@ class SelectedSong:
         """
         print(filename)
         self.song = SoundLoader.load(filename)
-        self.state = 'stop'
         self.length = self.song.length
         self.paused_time = 0
 
     def play(self) -> int:
         if self.song:
-            if self.state == 'stop':
+            if self.song.state == 'stop':
                 self.song.play()
                 self.song.seek(0)
 
@@ -47,7 +46,7 @@ class SelectedSong:
 
     def play_pos(self, position: int):
         if self.song:
-            if self.state == 'stop':
+            if self.song.state == 'stop':
                 self.song.play()
                 self.song.seek(position)
             else:

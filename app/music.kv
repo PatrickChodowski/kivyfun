@@ -53,6 +53,8 @@ Screens:
 <SongPlayerScreen>:
     id: songplayer_screen
     name:"songplayer"
+    resume_position:resume_position
+
     GridLayout:
         cols: 1
         size: root.width, root.height
@@ -60,11 +62,11 @@ Screens:
 
         FileChooserListView:
             id: filechooser
-            rootpath: "./app/downloads"
+            rootpath: "./downloads"
             on_selection: songplayer_screen.selected(filechooser.selection)
 
         GridLayout:
-            cols:6
+            cols:7
             size: root.width, 100
 
             Button:
@@ -114,6 +116,16 @@ Screens:
                 background_color: utils.get_color_from_hex('#0E2240')
                 size: 120, 100
                 size_hint: None, None
+
+            MDTextField:
+                id: resume_position
+                background_color: utils.get_color_from_hex('#0E2240')
+                color: "white"
+                multiline: False
+                size: 120, 100
+                size_hint: None, None
+
+
 
 
 

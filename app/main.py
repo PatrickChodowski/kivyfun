@@ -39,9 +39,12 @@ class DownloadScreen(MDScreen):
 class SongPlayerScreen(MDScreen):
     def __init__(self, **kwargs):
         super(SongPlayerScreen, self).__init__(**kwargs)
+        resume_position = ObjectProperty(None)
 
+        self.resume_position = resume_position
         self.song = None
         self.filename = None
+
 
     def selected(self, filename):
         filename = filename[0]
@@ -77,15 +80,20 @@ class SongPlayerScreen(MDScreen):
     def stop(self):
         self.song.stop()
 
-    def play_pos(self, position: int = None):
-        if position is None:
+    def play_pos(self):
+        if (self.resume_position.text is None) | (self.resume_position.text == ''):
             # if no argument provided, then use paused time
             print(f"starting from {self.song.paused_time}")
             self.song.play_pos(self.song.paused_time)
-        else:
+        elif (self.resume_position.text is not None) & (self.resume_position.text != ''):
             # if argument provided, play from the position provided
-            print(f"starting from {position}")
-            self.song.play_pos(position)
+            start_pos = int(self.resume_position.text)
+
+            if start_pos > self.song.length:
+                start_pos = self.song.length-2
+
+            print(f"starting from {start_pos}")
+            self.song.play_pos(start_pos)
 
     def volume_up(self):
         self.song.volume_up(0.1)
