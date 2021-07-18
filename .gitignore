@@ -5,3 +5,5 @@ __pycache__/
 data/
 credentials/
 app/downloads/
+.buildozer
+bin/

@@ -10,6 +10,7 @@ Kivy = "^2.0.0"
 kivymd = "^0.104.2"
 youtube_dl = "^2021.6.6"
 ffpyplayer = "^4.3.2"
+Cython = "^0.29.24"
 
 [tool.poetry.dev-dependencies]
 
