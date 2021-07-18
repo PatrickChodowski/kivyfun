@@ -4,12 +4,10 @@ os.environ['KIVY_AUDIO'] = 'ffpyplayer'
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty
 from kivy.core.window import Window
-from kivy.core.audio import SoundLoader
-from youtube_converter import Youtube
-from kivy.uix.screenmanager import ScreenManager, Screen
-from selected_song import SelectedSong
+from app.youtube_converter import Youtube
+from kivy.uix.screenmanager import ScreenManager
+from app.selected_song import SelectedSong
 
 
 
@@ -30,7 +28,7 @@ class SongPlayerScreen(MDScreen):
     def __init__(self, **kwargs):
         super(SongPlayerScreen, self).__init__(**kwargs)
 
-        filename = '../downloads/AC_DC - BACK IN BLACK MUSIC WITH LYRICS.mp3'
+        filename = '../app/downloads/AC_DC - BACK IN BLACK MUSIC WITH LYRICS.mp3'
         #self.current_sound = SoundLoader.load(filename)
         self.current_sound = SelectedSong(filename=filename)
 
