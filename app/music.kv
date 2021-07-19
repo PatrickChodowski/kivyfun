@@ -16,8 +16,7 @@ Screens:
             title: "Music on the go"
             pos_hint:{"top":1}
             left_action_items: [["menu", lambda x: app.callback()]]
-            right_action_items: [["rotate-3d-variant", lambda x: app.callback()]]
-
+            # right_action_items: [["youtube", lambda x: app.callback()]]
 
         MDTextField:
             id: youtube_link
@@ -34,18 +33,18 @@ Screens:
 
         Button:
             text: "Submit"
-            font_size: 30
+            font_size: 20
             on_press: root.download_youtube_url()
             background_color: utils.get_color_from_hex('#0E2240')
-            size: 800, 150
+            size: 400, 50
             size_hint: None, None
 
         Button:
             text: "Songs"
-            font_size: 30
+            font_size: 20
             on_release: app.root.current = "songplayer"
             background_color: utils.get_color_from_hex('#0E2240')
-            size: 800, 150
+            size: 400, 50
             size_hint: None, None
 
 
@@ -66,55 +65,56 @@ Screens:
             on_selection: songplayer_screen.selected(filechooser.selection)
 
         GridLayout:
-            cols:7
-            size: root.width, 100
+            cols:3
+            rows:3
+            size: root.width, 300
 
             Button:
                 text: "Play"
-                font_size: 30
+                font_size: 20
                 on_release: songplayer_screen.play()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             Button:
                 text: "Stop"
-                font_size: 30
+                font_size: 20
                 on_release: songplayer_screen.stop()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             Button:
                 text: "play_pos"
-                font_size: 30
+                font_size: 20
                 on_release: songplayer_screen.play_pos()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             Button:
                 text: "refresh"
-                font_size: 30
+                font_size: 20
                 on_release: filechooser._update_files()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             Button:
                 text: "Up"
-                font_size: 30
+                font_size: 20
                 on_release: songplayer_screen.volume_up()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             Button:
                 text: "Down"
-                font_size: 30
+                font_size: 20
                 on_release: songplayer_screen.volume_down()
                 background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
             MDTextField:
@@ -122,7 +122,7 @@ Screens:
                 background_color: utils.get_color_from_hex('#0E2240')
                 color: "white"
                 multiline: False
-                size: 120, 100
+                size: 120, 50
                 size_hint: None, None
 
 
@@ -131,9 +131,9 @@ Screens:
 
         Button:
             text: "Download"
-            font_size: 30
+            font_size: 20
             on_release: app.root.current = "download"
             background_color: utils.get_color_from_hex('#0E2240')
-            size: 800, 150
+            size: 400, 50
             size_hint: None, None
 

@@ -10,7 +10,7 @@ from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 Window.size = (400, 500)
-y = Youtube()
+y = Youtube(destination_path='./downloads')
 
 Builder.load_string('''
 <FileChooserListView>:
