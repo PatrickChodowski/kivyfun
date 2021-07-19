@@ -14,15 +14,15 @@ from utils import get_logger, list_music
 
 __version__ = '0.1.2'
 
-# OS specific setup
-# if platform in ['linux', 'macosx', 'win']:
-#     AUDIO_OUTPUT = 'mp3'
-# elif platform in ['android']:
-#     AUDIO_OUTPUT = 'wav'
-# elif platform in ['ios']:
-#     AUDIO_OUTPUT = 'wav'
+#OS specific setup
+if platform in ['linux', 'macosx', 'win']:
+    AUDIO_OUTPUT = 'm4a'
+elif platform in ['android']:
+    AUDIO_OUTPUT = 'ogg'
+elif platform in ['ios']:
+    AUDIO_OUTPUT = 'wav'
 
-AUDIO_OUTPUT = 'm4a'
+#AUDIO_OUTPUT = 'ogg'
 logger = get_logger('songz')
 
 if (platform != 'android'):
@@ -37,7 +37,7 @@ if (platform != 'android'):
 logger.info(f"PLATFORM NAME name: {platform}")
 logger.info(f"AUDIO OUTPUT name: {AUDIO_OUTPUT}")
 
-y = Youtube(destination_path='./downloads')
+y = Youtube(destination_path='./downloads', logger=logger)
 
 Builder.load_string('''
 <FileChooserListView>:
