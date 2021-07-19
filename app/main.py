@@ -10,6 +10,12 @@ from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils import get_logger, list_music
 
+
+from android.permissions import request_permissions, Permission
+request_permissions([Permission.READ_EXTERNAL_STORAGE])
+
+__version__ = '0.1.2'
+
 logger = get_logger('songz')
 
 #Window.size = (400, 500)
