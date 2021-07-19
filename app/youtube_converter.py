@@ -39,7 +39,7 @@ class Youtube:
         :param url: URL of youtube video
         :param output_format: MP3 for desktop, WAV or OGG for android
         """
-        if output_format in ['mp3', 'wav', 'ogg']:
+        if output_format in ['mp3', 'wav', 'm4a']:
             cmd = f"youtube-dl -o '{self.destination_path}/%(title)s.%(ext)s' -x --audio-format {output_format} '{url}'"
             subprocess.run(cmd, shell=True)
 

@@ -54,7 +54,4 @@ buildozer -v android debug
 buildozer android deploy run logcat
 
 
-
-
-
-used by: java.lang.ClassNotFoundException: Didn't find class "org.renpy.android.PythonActivity" on path: DexPathList[[zip file "/data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/base.apk"],nativeLibraryDirectories=[/data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/lib/arm, /data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/base.apk!/lib/armeabi-v7a, /system/lib, /product/lib]]
+# filters: ['*.wav'] if (utils.platform == "android") else ['*.mp3']

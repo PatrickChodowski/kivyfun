@@ -12,27 +12,30 @@ from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils import get_logger, list_music
 
-if (platform != 'android'):
-    try:
-        from android.permissions import request_permissions, Permission
-        request_permissions([Permission.READ_EXTERNAL_STORAGE])
-    except Exception as e:
-        print(e)
-
 __version__ = '0.1.2'
 
 # OS specific setup
-if platform in ['linux', 'macosx', 'win']:
-    AUDIO_OUTPUT = 'mp3'
-elif platform in ['android']:
-    AUDIO_OUTPUT = 'wav'
-elif platform in ['ios']:
-    AUDIO_OUTPUT = 'wav'
+# if platform in ['linux', 'macosx', 'win']:
+#     AUDIO_OUTPUT = 'mp3'
+# elif platform in ['android']:
+#     AUDIO_OUTPUT = 'wav'
+# elif platform in ['ios']:
+#     AUDIO_OUTPUT = 'wav'
 
-#AUDIO_OUTPUT = 'wav'
-
+AUDIO_OUTPUT = 'm4a'
 logger = get_logger('songz')
-logger.info(f"platform name: {platform}")
+
+if (platform != 'android'):
+    try:
+        from android.permissions import request_permissions, Permission
+        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+        logger.info('permissions requested')
+    except Exception as e:
+        logger.info(e)
+
+
+logger.info(f"PLATFORM NAME name: {platform}")
+logger.info(f"AUDIO OUTPUT name: {AUDIO_OUTPUT}")
 
 y = Youtube(destination_path='./downloads')
 
@@ -55,7 +58,7 @@ class DownloadScreen(MDScreen):
         url = self.youtube_link.text
         logger.info(f"link: {url}")
 
-        if 'https://www.youtube.com/watch?v=' in url:
+        if ('https://www.youtube.com/watch?v=' in url) | ('https://youtu.be/' in url):
             #y.get_best_audio(url=url)
             #y.get_mp3_audio(url=url)
             y.get_audio(url, AUDIO_OUTPUT)
