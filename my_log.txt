@@ -1,0 +1,56 @@
+# Check configuration tokens
+# WARNING: Config token app android.sdk is deprecated and ignored, but you set value 20
+# Ensure build layout
+# Check configuration tokens
+# Preparing build
+# Check requirements for android
+# Run 'dpkg --version'
+# Cwd None
+Debian 'dpkg' package management program version 1.19.7 (amd64).
+This is free software; see the GNU General Public License version 2 or
+later for copying conditions. There is NO warranty.
+# Search for Git (git)
+#  -> found at /usr/bin/git
+# Search for Cython (cython)
+#  -> found at /home/patrick/Documents/projects/songz/venv/bin/cython
+# Search for Java compiler (javac)
+#  -> found at /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+# Search for Java keytool (keytool)
+#  -> found at /usr/lib/jvm/java-11-openjdk-amd64/bin/keytool
+# Install platform
+# Run 'git config --get remote.origin.url'
+# Cwd /home/patrick/Documents/projects/songz/.buildozer/android/platform/python-for-android
+https://github.com/kivy/python-for-android.git
+# Run 'git branch -vv'
+# Cwd /home/patrick/Documents/projects/songz/.buildozer/android/platform/python-for-android
+* develop a0cb7b4d [origin/develop] Merge pull request #2471 from viblo/missing_diff
+# Run '/home/patrick/Documents/projects/songz/venv/bin/python -m pip install -q  \'appdirs\' \'colorama>=0.3.3\' \'jinja2\' \'six\' \'enum34; python_version<"3.4"\' \'sh>=1.10; sys_platform!="nt"\' \'pep517<0.7.0\' \'toml\''
+# Cwd None
+# Apache ANT found at /home/patrick/.buildozer/android/platform/apache-ant-1.9.4
+# Android SDK found at /home/patrick/.buildozer/android/platform/android-sdk
+# Recommended android's NDK version by p4a is: 19c
+# Android NDK found at /home/patrick/.buildozer/android/platform/android-ndk-r19b
+# Check application requirements
+# Check garden requirements
+# Compile platform
+# Run '/home/patrick/Documents/projects/songz/venv/bin/python -m pythonforandroid.toolchain create --dist_name=songz --bootstrap=sdl2 --requirements=python3==3.8.6,hostpython3==3.8.6,kivy,kivymd,youtube_dl,ffpyplayer --arch armeabi-v7a --copy-libs --color=always --storage-dir="/home/patrick/Documents/projects/songz/.buildozer/android/platform/build-armeabi-v7a" --ndk-api=21'
+# Cwd /home/patrick/Documents/projects/songz/.buildozer/android/platform/python-for-android
+# Run '/home/patrick/.buildozer/android/platform/android-sdk/platform-tools/adb devices'
+# Cwd None
+List of devices attached
+
+# Application pushed.
+# Application started.
+# Run 'dpkg --version'
+# Cwd None
+Debian 'dpkg' package management program version 1.19.7 (amd64).
+This is free software; see the GNU General Public License version 2 or
+later for copying conditions. There is NO warranty.
+# Search for Git (git)
+#  -> found at /usr/bin/git
+# Search for Cython (cython)
+#  -> found at /home/patrick/Documents/projects/songz/venv/bin/cython
+# Search for Java compiler (javac)
+#  -> found at /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+# Search for Java keytool (keytool)
+#  -> found at /usr/lib/jvm/java-11-openjdk-amd64/bin/keytool

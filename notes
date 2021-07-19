@@ -8,12 +8,14 @@ ffmpeg
 XD:
 click on applications/python3.8/install.certificates.command
 
-todo (fornow)
-- and how to send it as an app
+todo: important
+- how to build it as apk
 - feedback that song started download
+- play next song on the list after current finishes
+- synchronize between devices
 
+todo: for later:
 - youtube icon in downloads to link to youtube.com
-
 - file list doesnt refresh automatically on tab change
 - store the data of author, song title etc. on download -> read all metada on download
 
@@ -34,11 +36,25 @@ colors:
 #f59a9c
 
 
-brew install automake autoconf libtool
 
-brew install --cask adoptopenjdk8
-brew reinstall autoconf automake libtool openssl pkg-config zlib
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/zlib/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/zlib/include"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig:/usr/local/opt/zlib/lib/pkgconfig"
+# https://buildozer.readthedocs.io/en/latest/installation.html
+
+# dont install buildozer in venv!
+
+sudo apt install -y git zip unzip openjdk-8-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+pip3 install --upgrade Cython==0.29.19 virtualenv
+
+
+first -> click build name 7 times, then enable developer options via usb(has to be media transfer at least)
+
+# build:
+buildozer -v android debug
+
+#run:
+buildozer android deploy run logcat
+
+
+
+
+
+used by: java.lang.ClassNotFoundException: Didn't find class "org.renpy.android.PythonActivity" on path: DexPathList[[zip file "/data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/base.apk"],nativeLibraryDirectories=[/data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/lib/arm, /data/app/org.patrickchodowski.songz-b_IcF5svZAgNi-5Bcqh6qQ==/base.apk!/lib/armeabi-v7a, /system/lib, /product/lib]]

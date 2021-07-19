@@ -9,7 +9,7 @@ from kivy.core.window import Window
 from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 
-Window.size = (400, 500)
+#Window.size = (400, 500)
 y = Youtube(destination_path='./downloads')
 
 Builder.load_string('''
