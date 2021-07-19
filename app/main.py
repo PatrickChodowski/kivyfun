@@ -1,5 +1,7 @@
 import os
 os.environ['KIVY_AUDIO'] = 'ffpyplayer'
+
+from kivy.utils import platform
 from selected_song import SelectedSong
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
@@ -10,15 +12,28 @@ from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils import get_logger, list_music
 
-
-from android.permissions import request_permissions, Permission
-request_permissions([Permission.READ_EXTERNAL_STORAGE])
+if (platform != 'android'):
+    try:
+        from android.permissions import request_permissions, Permission
+        request_permissions([Permission.READ_EXTERNAL_STORAGE])
+    except Exception as e:
+        print(e)
 
 __version__ = '0.1.2'
 
-logger = get_logger('songz')
+# OS specific setup
+if platform in ['linux', 'macosx', 'win']:
+    AUDIO_OUTPUT = 'mp3'
+elif platform in ['android']:
+    AUDIO_OUTPUT = 'wav'
+elif platform in ['ios']:
+    AUDIO_OUTPUT = 'wav'
 
-#Window.size = (400, 500)
+#AUDIO_OUTPUT = 'wav'
+
+logger = get_logger('songz')
+logger.info(f"platform name: {platform}")
+
 y = Youtube(destination_path='./downloads')
 
 Builder.load_string('''
@@ -42,7 +57,8 @@ class DownloadScreen(MDScreen):
 
         if 'https://www.youtube.com/watch?v=' in url:
             #y.get_best_audio(url=url)
-            y.get_mp3_audio(url=url)
+            #y.get_mp3_audio(url=url)
+            y.get_audio(url, AUDIO_OUTPUT)
 
 
 class SongPlayerScreen(MDScreen):
@@ -88,7 +104,7 @@ class SongPlayerScreen(MDScreen):
             self.song.play()
         else:
             # play the first from the list
-            first_song = list_music(logger)[0]
+            first_song = list_music(logger, AUDIO_OUTPUT)[0]
             self.song = SelectedSong(filename=first_song, logger=logger)
             self.filename = first_song
             if self.song:

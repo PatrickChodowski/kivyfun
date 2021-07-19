@@ -18,10 +18,10 @@ def get_logger(logger_name: str) -> logging.Logger:
     return logger
 
 
-def list_music(logger: logging.Logger) -> list:
+def list_music(logger: logging.Logger, extension: str) -> list:
     song_list = list()
     for file in os.listdir('./downloads'):
-        if file.endswith(".mp3"):
+        if file.endswith(f".{extension}"):
             song_list.append('./downloads/'+file)
         logger.info(song_list)
     return song_list

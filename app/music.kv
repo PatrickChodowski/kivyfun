@@ -62,6 +62,7 @@ Screens:
         FileChooserListView:
             id: filechooser
             rootpath: "./downloads"
+            filters: ['*.wav'] if (utils.platform == "android") else ['*.mp3']
             on_selection: songplayer_screen.selected(filechooser.selection)
 
         GridLayout:
