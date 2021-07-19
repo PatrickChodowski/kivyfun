@@ -1,45 +1,41 @@
-import subprocess
 import logging
+import os
+import youtube_dl
 
 
 class Youtube:
     def __init__(self,
-                 destination_path: str = './downloads',
-                 logger: logging.Logger):
+                 logger: logging.Logger,
+                 output_format: str,
+                 destination_path: str = './downloads'
+                 ):
         self.logger = logger
         self.destination_path = destination_path
 
+        if output_format in ['mp3', 'wav', 'm4a']:
+            self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
+                                             'format': output_format})
+        elif output_format == 'ogg':
+            self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
+                                             'format': 'vorbis'})
+        else:
+            self.ydl = None
+
+
         # on android it cant be mp3, it can only be ogg or wav
 
-    def get_m4a_audio(self,
-                       url: str):
+
+    def get_audio(self, url: str) -> None:
         """
         Get new access token and headers
-        """
 
-        cmd = f"youtube-dl -o '{self.destination_path}/%(title)s.%(ext)s' -f 'bestaudio[ext=m4a]' '{url}'"
-        self.logger.info(f'DOWNLOAD CMD: {cmd}')
-        subprocess.run(cmd, shell=True)
+        :param url: URL of youtube video
+        """
+        with self.ydl as ydl:
+            ydl.download([url])
 
-    def get_mp3_audio(self,
-                       url: str):
-        """
-        Get new access token and headers
-        """
-        cmd = f"youtube-dl -o '{self.destination_path}/%(title)s.%(ext)s' -x --audio-format mp3 '{url}'"
-        self.logger.info(f'DOWNLOAD CMD: {cmd}')
-        subprocess.run(cmd, shell=True)
 
-    def get_ogg_audio(self,
-                       url: str):
-        """
-        Get new access token and headers
-        """
-        cmd = f"youtube-dl -o '{self.destination_path}/%(title)s.%(ext)s' -x --audio-format vorbis '{url}'"
-        self.logger.info(f'DOWNLOAD CMD: {cmd}')
-        subprocess.run(cmd, shell=True)
-
-    def get_audio(self, url: str, output_format: str) -> None:
+    def get_audio_cmd(self, url: str, output_format: str) -> None:
         """
         Get new access token and headers
 
@@ -53,5 +49,5 @@ class Youtube:
         else:
             cmd = ''
         self.logger.info(f'DOWNLOAD CMD: {cmd}')
-        subprocess.run(cmd, shell=True)
+        os.system(cmd)
 

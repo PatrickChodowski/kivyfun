@@ -37,7 +37,9 @@ if (platform != 'android'):
 logger.info(f"PLATFORM NAME name: {platform}")
 logger.info(f"AUDIO OUTPUT name: {AUDIO_OUTPUT}")
 
-y = Youtube(destination_path='./downloads', logger=logger)
+y = Youtube(output_format=AUDIO_OUTPUT,
+            destination_path='./downloads',
+            logger=logger)
 
 Builder.load_string('''
 <FileChooserListView>:
@@ -59,9 +61,7 @@ class DownloadScreen(MDScreen):
         logger.info(f"link: {url}")
 
         if ('https://www.youtube.com/watch?v=' in url) | ('https://youtu.be/' in url):
-            #y.get_best_audio(url=url)
-            #y.get_mp3_audio(url=url)
-            y.get_audio(url, AUDIO_OUTPUT)
+            y.get_audio(url)
 
 
 class SongPlayerScreen(MDScreen):
