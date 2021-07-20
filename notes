@@ -9,14 +9,11 @@ XD:
 click on applications/python3.8/install.certificates.command
 
 todo: important
-- how to build it as apk
 - feedback that song started download
-- play next song on the list after current finishes
+- comment out all player-music parts
 - synchronize between devices
 
-todo: for later:
-- youtube icon in downloads to link to youtube.com
-- file list doesnt refresh automatically on tab change
+
 
 
 #https://kivy.org/doc/stable/_modules/kivy/core/audio.html
@@ -56,3 +53,6 @@ buildozer android deploy run logcat
 # filters: ['*.wav'] if (utils.platform == "android") else ['*.mp3']
 
 https://www.youtube.com/watch?v=gaU-XQ52Xwg
+
+android
+notes: android youtube_dl.utils.DownloadError: ERROR: requested format not available

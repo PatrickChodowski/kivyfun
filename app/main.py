@@ -16,7 +16,7 @@ from utils import get_logger, list_music
 from ydl_logger import YdlLogger
 
 
-__version__ = '0.1.7'
+__version__ = '0.2.0'
 
 AUDIO_OUTPUT = 'm4a'
 if platform in ['linux', 'macosx', 'win']:
@@ -24,7 +24,7 @@ if platform in ['linux', 'macosx', 'win']:
     OUTPUT_DIR = './downloads'
     SOURCE_DIR = './downloads'
 elif platform in ['android']:
-    AUDIO_OUTPUT = 'ogg'
+    AUDIO_OUTPUT = 'm4a'
     OUTPUT_DIR = os.getenv('EXTERNAL_STORAGE')
     OUTPUT_DIR += '/Music'
     SOURCE_DIR = OUTPUT_DIR
