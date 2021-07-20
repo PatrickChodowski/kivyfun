@@ -16,7 +16,7 @@ from utils import get_logger, list_music
 from ydl_logger import YdlLogger
 
 
-__version__ = '0.1.6'
+__version__ = '0.1.7'
 
 AUDIO_OUTPUT = 'm4a'
 if platform in ['linux', 'macosx', 'win']:
@@ -24,7 +24,7 @@ if platform in ['linux', 'macosx', 'win']:
     OUTPUT_DIR = './downloads'
     SOURCE_DIR = './downloads'
 elif platform in ['android']:
-    AUDIO_OUTPUT = 'm4a'
+    AUDIO_OUTPUT = 'ogg'
     OUTPUT_DIR = os.getenv('EXTERNAL_STORAGE')
     OUTPUT_DIR += '/Music'
     SOURCE_DIR = OUTPUT_DIR
@@ -125,11 +125,15 @@ class SongPlayerScreen(MDScreen):
             self.song.play()
         else:
             # play the first from the list
-            first_song = list_music(SOURCE_DIR,logger, AUDIO_OUTPUT)[0]
-            self.song = SelectedSong(filename=first_song, logger=logger)
-            self.filename = first_song
-            if self.song:
-                self.song.play()
+            song_list = list_music(SOURCE_DIR, logger, AUDIO_OUTPUT)
+            if song_list.__len__() > 0:
+                first_song = song_list[0]
+                self.song = SelectedSong(filename=first_song, logger=logger)
+                self.filename = first_song
+                if self.song:
+                    self.song.play()
+            else:
+                pass
 
     def stop(self):
         if self.song is not None:
