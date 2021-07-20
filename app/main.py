@@ -61,7 +61,7 @@ class DownloadScreen(MDScreen):
         logger.info(f"link: {url}")
 
         if ('https://www.youtube.com/watch?v=' in url) | ('https://youtu.be/' in url):
-            y.get_audio(url)
+            y.get_audio_cmd(url, AUDIO_OUTPUT)
 
 
 class SongPlayerScreen(MDScreen):
