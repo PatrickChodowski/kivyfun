@@ -3,6 +3,9 @@ import os
 import youtube_dl
 import json
 from dataclasses import dataclass, asdict
+from downloader_thread import DownloaderThread
+from ydl_logger import YdlLogger
+
 
 @dataclass
 class YoutubeMeta:
@@ -58,7 +61,7 @@ class Youtube:
             self.logger.info(f"META - DURATION: {song_meta['duration']}")
             self.logger.info(f"META - URL: {song_meta['webpage_url']}")
             self.logger.info(f"META - CHANNEL: {song_meta['channel']}")
-            self.logger.info(f"META - THUMBNAIL URL: {song_meta['thumbnail_url']}")
+            self.logger.info(f"META - THUMBNAIL URL: {th_url}")
             self.logger.info(f"META - UPLOAD DATE: {song_meta['upload_date']}")
 
             with open(f"./meta/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
@@ -96,3 +99,14 @@ class Youtube:
         self.logger.info(f'DOWNLOAD CMD: {cmd}')
         os.system(cmd)
 
+
+    def get_audio_with_thread(self, url: str) -> None:
+        ydl_logger = YdlLogger(rv=None, index=0)
+
+        # Run youtube-dl in a thread so the UI do not freeze
+        t = DownloaderThread(url=url,
+                             ydl=self.ydl,
+                             ydl_logger=ydl_logger,
+                             datum=dict()
+                             )
+        t.start()

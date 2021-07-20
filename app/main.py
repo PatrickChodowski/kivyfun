@@ -4,17 +4,19 @@ os.environ['KIVY_AUDIO'] = 'ffpyplayer'
 from kivy.utils import platform
 from selected_song import SelectedSong
 from kivymd.uix.screen import MDScreen
+from kivy.uix.actionbar import ActionBar
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
+from kivy.uix.recycleview import RecycleView
 from kivy.core.window import Window
 from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils import get_logger, list_music
 
-__version__ = '0.1.2'
+__version__ = '0.1.5'
 
-#OS specific setup
+AUDIO_OUTPUT = 'm4a'
 if platform in ['linux', 'macosx', 'win']:
     AUDIO_OUTPUT = 'm4a'
 elif platform in ['android']:
@@ -22,17 +24,12 @@ elif platform in ['android']:
 elif platform in ['ios']:
     AUDIO_OUTPUT = 'wav'
 
-#AUDIO_OUTPUT = 'ogg'
 logger = get_logger('songz')
 
-if (platform != 'android'):
-    try:
-        from android.permissions import request_permissions, Permission
-        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
-        logger.info('permissions requested')
-    except Exception as e:
-        logger.info(e)
-
+if platform == 'android':
+    from android.permissions import request_permissions, Permission, check_permission
+    from android.storage import primary_external_storage_path
+    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
 
 logger.info(f"PLATFORM NAME name: {platform}")
 logger.info(f"AUDIO OUTPUT name: {AUDIO_OUTPUT}")
@@ -51,6 +48,14 @@ Builder.load_string('''
 ''')
 
 
+class RV(RecycleView):
+    pass
+
+
+class ActionBarMain(ActionBar):
+    pass
+
+
 class DownloadScreen(MDScreen):
     def __init__(self, **kwargs):
         super(DownloadScreen, self).__init__(**kwargs)
@@ -61,7 +66,9 @@ class DownloadScreen(MDScreen):
         logger.info(f"link: {url}")
 
         if ('https://www.youtube.com/watch?v=' in url) | ('https://youtu.be/' in url):
-            y.get_audio_cmd(url, AUDIO_OUTPUT)
+            #y.get_audio_cmd(url, AUDIO_OUTPUT)
+            #y.get_audio_with_thread(url)
+            y.get_audio(url)
 
 
 class SongPlayerScreen(MDScreen):

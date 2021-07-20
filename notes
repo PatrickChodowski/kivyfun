@@ -17,7 +17,6 @@ todo: important
 todo: for later:
 - youtube icon in downloads to link to youtube.com
 - file list doesnt refresh automatically on tab change
-- store the data of author, song title etc. on download -> read all metada on download
 
 
 #https://kivy.org/doc/stable/_modules/kivy/core/audio.html
@@ -55,3 +54,5 @@ buildozer android deploy run logcat
 
 
 # filters: ['*.wav'] if (utils.platform == "android") else ['*.mp3']
+
+https://www.youtube.com/watch?v=gaU-XQ52Xwg
