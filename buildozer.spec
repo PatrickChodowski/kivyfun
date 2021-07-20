@@ -35,8 +35,7 @@ version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,hostpython3,kivy==2.0.0,kivymd,youtube_dl,ffpyplayer,Pillow,python-for-android,ffpyplayer_codecs,ffmpeg,openssl
+requirements = python3,hostpython3,kivy==2.0.0,kivymd,youtube_dl==2021.6.6,ffpyplayer,Pillow,python-for-android,ffpyplayer_codecs,ffmpeg,openssl,certifi
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -68,7 +67,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.9.1
+osx.kivy_version = 2.0.0
 
 #
 # Android specific
@@ -85,7 +84,7 @@ fullscreen = 0
 android.presplash_color = #e82653
 
 # (list) Permissions
-android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27

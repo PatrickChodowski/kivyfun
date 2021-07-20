@@ -1,6 +1,6 @@
 import os
+import certifi
 os.environ['KIVY_AUDIO'] = 'ffpyplayer'
-
 from kivy.utils import platform
 from selected_song import SelectedSong
 from kivymd.uix.screen import MDScreen
@@ -13,30 +13,43 @@ from kivy.core.window import Window
 from youtube_converter import Youtube
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils import get_logger, list_music
+from ydl_logger import YdlLogger
 
-__version__ = '0.1.5'
+
+__version__ = '0.1.6'
 
 AUDIO_OUTPUT = 'm4a'
 if platform in ['linux', 'macosx', 'win']:
     AUDIO_OUTPUT = 'm4a'
+    OUTPUT_DIR = './downloads'
+    SOURCE_DIR = './downloads'
 elif platform in ['android']:
-    AUDIO_OUTPUT = 'ogg'
+    AUDIO_OUTPUT = 'm4a'
+    OUTPUT_DIR = os.getenv('EXTERNAL_STORAGE')
+    OUTPUT_DIR += '/Music'
+    SOURCE_DIR = OUTPUT_DIR
 elif platform in ['ios']:
     AUDIO_OUTPUT = 'wav'
+    OUTPUT_DIR = './downloads'
+    SOURCE_DIR = './downloads'
 
 logger = get_logger('songz')
 
 if platform == 'android':
     from android.permissions import request_permissions, Permission, check_permission
     from android.storage import primary_external_storage_path
-    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+    os.environ['SSL_CERT_FILE'] = certifi.where()
+
 
 logger.info(f"PLATFORM NAME name: {platform}")
 logger.info(f"AUDIO OUTPUT name: {AUDIO_OUTPUT}")
+logger.info(f"OUTPUT DIR name: {OUTPUT_DIR}")
+logger.info(f"SOURCE DIR name: {SOURCE_DIR}")
 
-y = Youtube(output_format=AUDIO_OUTPUT,
-            destination_path='./downloads',
-            logger=logger)
+y = Youtube(logger=logger,
+            output_format=AUDIO_OUTPUT,
+            ydl_logger=YdlLogger(rv=dict(), index=0),
+            destination_path=OUTPUT_DIR)
 
 Builder.load_string('''
 <FileChooserListView>:
@@ -66,9 +79,7 @@ class DownloadScreen(MDScreen):
         logger.info(f"link: {url}")
 
         if ('https://www.youtube.com/watch?v=' in url) | ('https://youtu.be/' in url):
-            #y.get_audio_cmd(url, AUDIO_OUTPUT)
-            #y.get_audio_with_thread(url)
-            y.get_audio(url)
+            y.get_audio_with_thread(url)
 
 
 class SongPlayerScreen(MDScreen):
@@ -114,7 +125,7 @@ class SongPlayerScreen(MDScreen):
             self.song.play()
         else:
             # play the first from the list
-            first_song = list_music(logger, AUDIO_OUTPUT)[0]
+            first_song = list_music(SOURCE_DIR,logger, AUDIO_OUTPUT)[0]
             self.song = SelectedSong(filename=first_song, logger=logger)
             self.filename = first_song
             if self.song:
@@ -152,6 +163,14 @@ class Screens(ScreenManager):
 
 class MusicApp(MDApp):
     def build(self):
+        if platform == 'android' and not check_permission('android.permission.WRITE_EXTERNAL_STORAGE'):
+            request_permissions([Permission.WRITE_EXTERNAL_STORAGE])
+        if platform == 'android' and not check_permission('android.permission.READ_EXTERNAL_STORAGE'):
+            request_permissions([Permission.READ_EXTERNAL_STORAGE])
+        if platform == 'android' and not check_permission('android.permission.INTERNET'):
+            request_permissions([Permission.INTERNET])
+
+
         kv = Builder.load_file('music.kv')
         return kv
 

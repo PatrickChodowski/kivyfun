@@ -4,6 +4,7 @@ import youtube_dl
 import json
 from dataclasses import dataclass, asdict
 from downloader_thread import DownloaderThread
+import traceback
 from ydl_logger import YdlLogger
 
 
@@ -25,47 +26,66 @@ class Youtube:
     def __init__(self,
                  logger: logging.Logger,
                  output_format: str,
-                 destination_path: str = './downloads'
+                 ydl_logger: YdlLogger,
+                 destination_path: str = './downloads',
+                 source_path: str = './downloads'
                  ):
         self.logger = logger
         self.destination_path = destination_path
+        self.source_path = source_path
+        self.ydl_logger = ydl_logger
 
         if output_format in ['mp3', 'wav', 'm4a']:
             self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
-                                             'format': output_format})
+                                             'format': output_format,
+                                             'logger': self.logger})
         elif output_format == 'ogg':
             self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
-                                             'format': 'vorbis'})
+                                             'format': 'vorbis',
+                                             'logger': self.logger})
         else:
             self.ydl = None
 
     def get_meta(self, url: str) -> None:
-        with self.ydl as ydl:
-            song_meta = ydl.extract_info(url, download=False)
-            th_url = ''
+        self.logger.info(f"Getting metadata for url {url}")
+        song_meta = dict()
+        try:
+            with self.ydl as ydl:
+                self.logger.info("STARTING SONG META EXTRACTION")
+                song_meta = ydl.extract_info(url, download=False)
+                self.logger.info("SONG META EXTRACTED")
+        except Exception as inst:
+            print(inst)
+            tb = traceback.format_exc()
+            print(tb)
+            pass
+
+
+        th_url = ''
+        if 'thumbnails' in song_meta:
             for th in song_meta['thumbnails']:
                 if th['height'] == 94:
                     th_url = th['url']
 
-            y_song_meta = YoutubeMeta(
-                id=song_meta['id'],
-                title=song_meta['title'],
-                duration=song_meta['duration'],
-                webpage_url=song_meta['webpage_url'],
-                channel=song_meta['channel'],
-                thumbnail_url=th_url,
-                upload_date=song_meta['upload_date'],
-            )
-            self.logger.info(f"META - ID: {song_meta['id']}")
-            self.logger.info(f"META - TITLE: {song_meta['title']}")
-            self.logger.info(f"META - DURATION: {song_meta['duration']}")
-            self.logger.info(f"META - URL: {song_meta['webpage_url']}")
-            self.logger.info(f"META - CHANNEL: {song_meta['channel']}")
-            self.logger.info(f"META - THUMBNAIL URL: {th_url}")
-            self.logger.info(f"META - UPLOAD DATE: {song_meta['upload_date']}")
+        y_song_meta = YoutubeMeta(
+            id=song_meta['id'],
+            title=song_meta['title'],
+            duration=song_meta['duration'],
+            webpage_url=song_meta['webpage_url'],
+            channel=song_meta['channel'],
+            thumbnail_url=th_url,
+            upload_date=song_meta['upload_date'],
+        )
+        self.logger.info(f"META - ID: {song_meta['id']}")
+        self.logger.info(f"META - TITLE: {song_meta['title']}")
+        self.logger.info(f"META - DURATION: {song_meta['duration']}")
+        self.logger.info(f"META - URL: {song_meta['webpage_url']}")
+        self.logger.info(f"META - CHANNEL: {song_meta['channel']}")
+        self.logger.info(f"META - THUMBNAIL URL: {th_url}")
+        self.logger.info(f"META - UPLOAD DATE: {song_meta['upload_date']}")
 
-            with open(f"./meta/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
-                json.dump(asdict(y_song_meta), fp, ensure_ascii=False)
+        with open(f"{self.destination_path}/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
+            json.dump(asdict(y_song_meta), fp, ensure_ascii=False)
 
 
     def get_audio(self, url: str) -> None:
@@ -101,12 +121,13 @@ class Youtube:
 
 
     def get_audio_with_thread(self, url: str) -> None:
-        ydl_logger = YdlLogger(rv=None, index=0)
-
+        self.logger.info(f'DOWNLOAD URL: {url}')
+        self.get_meta(url)
         # Run youtube-dl in a thread so the UI do not freeze
         t = DownloaderThread(url=url,
                              ydl=self.ydl,
-                             ydl_logger=ydl_logger,
-                             datum=dict()
+                             datum=dict(),
+                             logger=self.logger
                              )
         t.start()
+        self.logger.info(f'DOWNLOAD THREAD STARTED')
