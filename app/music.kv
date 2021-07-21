@@ -1,141 +1,85 @@
-#:import utils kivy.utils
-#:import os os
+#:kivy 2.0.0
+#:import Window kivy.core.window.Window
+#:import Clipboard kivy.core.clipboard.Clipboard
+#:import Factory kivy.factory.Factory
 
-Screens:
-    DownloadScreen:
-    SongPlayerScreen:
-
-<DownloadScreen>:
-    name:"download"
+<DownloaderLayout>:
+    orientation: 'vertical'
     youtube_link:youtube_link
-
-    GridLayout:
-        cols: 1
-        size: root.width, root.height
-
-        MDToolbar:
-            title: "Music on the go"
-            pos_hint:{"top":1}
-            left_action_items: [["menu", lambda x: app.callback()]]
-            # right_action_items: [["youtube", lambda x: app.callback()]]
-
-        MDTextField:
+    BoxLayout:
+        size_hint_y: None
+        TextInput:
             id: youtube_link
-            background_color: utils.get_color_from_hex('#1D428A')
-            color: "black"
-            helper_text: "Paste the link of youtube video you want to download music from"
-            helper_text_mode: "on_focus"
+            hint_text: 'Enter url here'
+            size_hint_y: None
             multiline: False
-            icon_right: 'youtube'
-            size: 0.8, 1
-            min_height: "300dp"
-
-
 
         Button:
-            text: "Submit"
-            font_size: 20
-            on_press: root.download_youtube_url()
-            background_color: utils.get_color_from_hex('#0E2240')
-            size: 400, 50
-            size_hint: None, None
+            id: download_button
+            on_press: root.start_download()
+            size_hint_y: None
+            size_hint_x: 0.1
+            Image:
+                x: self.parent.x
+                y: self.parent.y
+                size: self.parent.size
+                stretch: True
+                source: 'img/down-arrow.png'
+    RV:
+        id: rv
 
-        Button:
-            text: "Songs"
-            font_size: 20
-            on_release: app.root.current = "songplayer"
-            background_color: utils.get_color_from_hex('#0E2240')
-            size: 400, 50
-            size_hint: None, None
-
-
-
-<SongPlayerScreen>:
-    id: songplayer_screen
-    name:"songplayer"
-    resume_position:resume_position
-
-    GridLayout:
-        cols: 1
-        size: root.width, root.height
-
-
-        FileChooserListView:
-            id: filechooser
-            rootpath: os.getenv('EXTERNAL_STORAGE') + '/Music' if (utils.platform == "android") else "./downloads"
-            filters: ['*.ogg'] if (utils.platform == "android") else ['*.m4a']
-            on_selection: songplayer_screen.selected(filechooser.selection)
-
-        GridLayout:
-            cols:3
-            rows:3
-            size: root.width, 300
-
-            Button:
-                text: "Play"
-                font_size: 20
-                on_release: songplayer_screen.play()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            Button:
-                text: "Stop"
-                font_size: 20
-                on_release: songplayer_screen.stop()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            Button:
-                text: "play_pos"
-                font_size: 20
-                on_release: songplayer_screen.play_pos()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            Button:
-                text: "refresh"
-                font_size: 20
-                on_release: filechooser._update_files()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            Button:
-                text: "Up"
-                font_size: 20
-                on_release: songplayer_screen.volume_up()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            Button:
-                text: "Down"
-                font_size: 20
-                on_release: songplayer_screen.volume_down()
-                background_color: utils.get_color_from_hex('#0E2240')
-                size: 120, 50
-                size_hint: None, None
-
-            MDTextField:
-                id: resume_position
-                background_color: utils.get_color_from_hex('#0E2240')
-                color: "white"
-                multiline: False
-                size: 120, 50
-                size_hint: None, None
+<DownloadStatusBar>:
+    orientation: 'horizontal'
+    padding: 5
+    bcolor: .6, .6, .6, 1
+    canvas.before:
+        Color:
+            rgba: self.bcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.url if root.title == '' else root.title
+            text_size: self.width, None
+            height: self.texture_size[1]
+        Label:
+            text: '{:5.2f}% {} {} {}'.format(root.percent, root.file_size, root.speed, root.ETA)
+            text_size: self.width, None
+            height: self.texture_size[1]
+        ProgressBar:
+            value: root.percent
+    Image:
+        x: self.parent.x
+        y: self.parent.y
+        size: self.parent.size
+        stretch: True
+        source: root.status_icon
+        size_hint_x: .1
 
 
+<RV>:
+    viewclass: 'DownloadStatusBar'
+    RecycleBoxLayout:
+        id: rbl
+        default_size: None, dp(60)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
 
-
-
-        Button:
-            text: "Download"
-            font_size: 20
-            on_release: app.root.current = "download"
-            background_color: utils.get_color_from_hex('#0E2240')
-            size: 400, 50
-            size_hint: None, None
-
+<RootLayout>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        DownloaderLayout:
+            id: main_layout
+            bcolor: .75, .75, .75, .75
+            canvas.before:
+                Color:
+                    rgba: self.bcolor
+                Rectangle:
+                    pos: self.pos
+                    size: self.size

@@ -1,0 +1,147 @@
+#:import utils kivy.utils
+#:import os os
+#:import Window kivy.core.window.Window
+#:import Clipboard kivy.core.clipboard.Clipboard
+#:import Factory kivy.factory.Factory
+
+Screens:
+    DownloadScreen:
+    # SongPlayerScreen:
+
+
+<DownloadScreen>:
+    name:"download"
+    youtube_link:youtube_link
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        MDToolbar:
+            title: "Songz"
+            pos_hint:{"top":1}
+            # left_action_items: [["menu", lambda x: app.callback()]]
+            # right_action_items: [["youtube", lambda x: app.callback()]]
+
+        MDTextField:
+            id: youtube_link
+            background_color: utils.get_color_from_hex('#1D428A')
+            color: "black"
+            helper_text: "Paste the link of youtube video you want to download music from"
+            helper_text_mode: "on_focus"
+            multiline: False
+            icon_right: 'youtube'
+            size: 0.8, 1
+            min_height: "300dp"
+
+
+
+        Button:
+            text: "Submit"
+            font_size: 20
+            on_press: root.download_youtube_url()
+            background_color: utils.get_color_from_hex('#0E2240')
+            size: 400, 50
+            size_hint: None, None
+
+        RV:
+            id: rv
+
+
+
+
+#        Button:
+#            text: "Songs"
+#            font_size: 20
+#            on_release: app.root.current = "songplayer"
+#            background_color: utils.get_color_from_hex('#0E2240')
+#            size: 400, 50
+#            size_hint: None, None
+
+
+
+# SongPlayerScreen>:
+#    id: songplayer_screen
+#    name:"songplayer"
+#    resume_position:resume_position
+#
+#    GridLayout:
+#        cols: 1
+#        size: root.width, root.height
+#
+#
+#        FileChooserListView:
+#            id: filechooser
+#            rootpath: os.getenv('EXTERNAL_STORAGE') + '/Music' if (utils.platform == "android") else "./downloads"
+#            filters: ['*.ogg'] if (utils.platform == "android") else ['*.m4a']
+#            on_selection: songplayer_screen.selected(filechooser.selection)
+#
+#        GridLayout:
+#            cols:3
+#            rows:3
+#            size: root.width, 300
+#
+#            Button:
+#                text: "Play"
+#                font_size: 20
+#                on_release: songplayer_screen.play()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            Button:
+#                text: "Stop"
+#                font_size: 20
+#                on_release: songplayer_screen.stop()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            Button:
+#                text: "play_pos"
+#                font_size: 20
+#                on_release: songplayer_screen.play_pos()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            Button:
+#                text: "refresh"
+#                font_size: 20
+#                on_release: filechooser._update_files()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            Button:
+#                text: "Up"
+#                font_size: 20
+#                on_release: songplayer_screen.volume_up()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            Button:
+#                text: "Down"
+#                font_size: 20
+#                on_release: songplayer_screen.volume_down()
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                size: 120, 50
+#                size_hint: None, None
+#
+#            MDTextField:
+#                id: resume_position
+#                background_color: utils.get_color_from_hex('#0E2240')
+#                color: "white"
+#                multiline: False
+#                size: 120, 50
+#                size_hint: None, None
+#
+#        Button:
+#            text: "Download"
+#            font_size: 20
+#            on_release: app.root.current = "download"
+#            background_color: utils.get_color_from_hex('#0E2240')
+#            size: 400, 50
+#            size_hint: None, None
+

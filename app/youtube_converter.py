@@ -30,23 +30,30 @@ class Youtube:
                  destination_path: str = './downloads',
                  source_path: str = './downloads'
                  ):
+        self.output_format = output_format
         self.logger = logger
         self.destination_path = destination_path
         self.source_path = source_path
         self.ydl_logger = ydl_logger
 
-        if output_format in ['mp3', 'wav', 'm4a']:
+        if self.output_format in ['mp3', 'wav', 'm4a']:
             self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
-                                             'format': output_format,
+                                             'format': self.output_format,
                                              'logger': self.logger})
-        elif output_format == 'ogg':
+        elif self.output_format == 'ogg':
             self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
                                              'format': 'vorbis',
                                              'logger': self.logger})
         else:
             self.ydl = None
 
-    def get_meta(self, url: str) -> None:
+    def set_ydl_logger(self, ydl_logger):
+        self.ydl = youtube_dl.YoutubeDL({'outtmpl': f'{self.destination_path}/%(title)s.%(ext)s',
+                                         'format': self.output_format,
+                                         'logger': ydl_logger})
+
+
+    def get_meta(self, url: str) -> YoutubeMeta:
         self.logger.info(f"Getting metadata for url {url}")
         song_meta = dict()
         try:
@@ -87,6 +94,8 @@ class Youtube:
         with open(f"{self.destination_path}/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
             json.dump(asdict(y_song_meta), fp, ensure_ascii=False)
 
+        return y_song_meta
+
 
     def get_audio(self, url: str) -> None:
         """
@@ -122,7 +131,7 @@ class Youtube:
 
     def get_audio_with_thread(self, url: str) -> None:
         self.logger.info(f'DOWNLOAD URL: {url}')
-        self.get_meta(url)
+        # self.get_meta(url)
         # Run youtube-dl in a thread so the UI do not freeze
         t = DownloaderThread(url=url,
                              ydl=self.ydl,

@@ -9,18 +9,11 @@ XD:
 click on applications/python3.8/install.certificates.command
 
 todo: important
-- feedback that song started download
-- comment out all player-music parts
 - synchronize between devices
 
+todo: not as important
+- better layout
 
-
-
-#https://kivy.org/doc/stable/_modules/kivy/core/audio.html
-
-
-# Values: sdl2, gstplayer, ffpyplayer, pygame, avplayer
-#
 
 
 
