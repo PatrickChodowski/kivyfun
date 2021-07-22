@@ -14,7 +14,7 @@ from synchronizer import Synchronizer
 
 __version__ = '0.4.2'
 
-if platform in ['linux', 'macosx', 'win']:
+if platform in ['linux', 'win']:
     AUDIO_OUTPUT = 'm4a'
     OUTPUT_DIR = '/home/patrick/Music'
     SOURCE_DIR = '/home/patrick/Music'
@@ -23,6 +23,10 @@ elif platform in ['android']:
     OUTPUT_DIR = os.getenv('EXTERNAL_STORAGE')
     OUTPUT_DIR += '/Music'
     SOURCE_DIR = OUTPUT_DIR
+elif platform in ['macosx']:
+    AUDIO_OUTPUT = 'm4a'
+    OUTPUT_DIR = '/Users/patrick/Music'
+    SOURCE_DIR = '/Users/patrick/Music'
 elif platform in ['ios']:
     AUDIO_OUTPUT = 'wav'
     OUTPUT_DIR = './downloads'
