@@ -25,6 +25,21 @@
                 size: self.parent.size
                 stretch: True
                 source: 'img/down-arrow.png'
+
+        Button:
+            id: syncronize_up_button
+            text: "Push"
+            on_press: root.syncronize_up()
+            size_hint_y: None
+            size_hint_x: 0.1
+
+        Button:
+            id: syncronize_down_button
+            text: "Pull"
+            on_press: root.syncronize_down()
+            size_hint_y: None
+            size_hint_x: 0.1
+
     RV:
         id: rv
 

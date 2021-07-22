@@ -7,3 +7,4 @@ credentials/
 app/downloads/
 .buildozer
 bin/
+app/config.json

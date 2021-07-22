@@ -1,3 +1,0 @@
-title=Songz
-author=PatrickC
-orientation=portrait

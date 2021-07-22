@@ -50,12 +50,47 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "dropbox"
+version = "11.13.3"
+description = "Official Dropbox API Client"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = ">=2.16.2"
+six = ">=1.12.0"
+stone = ">=2"
+
+[[package]]
 name = "ffpyplayer"
 version = "4.3.2"
 description = "A cython implementation of an ffmpeg based player."
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "gitdb"
+version = "4.0.7"
+description = "Git Object Database"
+category = "main"
+optional = false
+python-versions = ">=3.4"
+
+[package.dependencies]
+smmap = ">=3.0.1,<5"
+
+[[package]]
+name = "gitpython"
+version = "3.1.18"
+description = "Python Git Library"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "idna"
@@ -204,6 +239,14 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "ply"
+version = "3.11"
+description = "Python Lex & Yacc"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pygments"
 version = "2.9.0"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -290,6 +333,26 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
+name = "smmap"
+version = "4.0.0"
+description = "A pure Python implementation of a sliding window memory map manager"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
+name = "stone"
+version = "3.2.1"
+description = "Stone is an interface description language (IDL) for APIs."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+ply = ">=3.4"
+six = ">=1.3.0"
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -333,7 +396,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "122bc82a81d27879cc853c9916a242f3a89a64ded87a22467971ee6efa8df3c0"
+content-hash = "2f60fd74e98b3fc02a6f691cd5500a3cb4bcf4cd374e4e09df8d1f2d7bfecb1f"
 
 [metadata.files]
 appdirs = [
@@ -397,6 +460,11 @@ docutils = [
     {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
     {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
 ]
+dropbox = [
+    {file = "dropbox-11.13.3-py2-none-any.whl", hash = "sha256:c3e3c5af1669db1c565b22f6eed2c3bdeb3ef57134e5e614d9334ea2fa37624a"},
+    {file = "dropbox-11.13.3-py3-none-any.whl", hash = "sha256:3b85320eb0d1cd2da1c8a34870a6c24dc2f74890de21865a1bb15e8c501e0573"},
+    {file = "dropbox-11.13.3.tar.gz", hash = "sha256:a31b1e01855f9d42e2b92d28ec99c2c1d46b8f973702e5b9d0b6855bb27408ad"},
+]
 ffpyplayer = [
     {file = "ffpyplayer-4.3.2-cp35-cp35m-manylinux2010_x86_64.whl", hash = "sha256:3f54bf7dc120834cbc265ec09ef8c71d29d9ea1660ab11ec55ccc316f9969677"},
     {file = "ffpyplayer-4.3.2-cp36-cp36m-macosx_10_9_x86_64.macosx_10_9_intel.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:c487b33245ce5920c4661f9545000f1ec1534517f55bf4d0f3186a7348cc6b61"},
@@ -416,6 +484,14 @@ ffpyplayer = [
     {file = "ffpyplayer-4.3.2-cp39-cp39-win32.whl", hash = "sha256:a08dbd48eb108396e8957713d08123133a0a447aa505a1f92d351076c7c090bb"},
     {file = "ffpyplayer-4.3.2-cp39-cp39-win_amd64.whl", hash = "sha256:97a684f7549c0564e7c172a145fa2d6c25e0b9790b1fff6a5dfc89ac8c167949"},
     {file = "ffpyplayer-4.3.2.tar.gz", hash = "sha256:0e7af171e8d8f97be218048461e88c4c64493d2bd0068b8835c05cb313614ada"},
+]
+gitdb = [
+    {file = "gitdb-4.0.7-py3-none-any.whl", hash = "sha256:6c4cc71933456991da20917998acbe6cf4fb41eeaab7d6d67fbc05ecd4c865b0"},
+    {file = "gitdb-4.0.7.tar.gz", hash = "sha256:96bf5c08b157a666fec41129e6d327235284cca4c81e92109260f353ba138005"},
+]
+gitpython = [
+    {file = "GitPython-3.1.18-py3-none-any.whl", hash = "sha256:fce760879cd2aebd2991b3542876dc5c4a909b30c9d69dfc488e504a8db37ee8"},
+    {file = "GitPython-3.1.18.tar.gz", hash = "sha256:b838a895977b45ab6f0cc926a9045c8d1c44e2b653c1fcc39fe91f42c6e8f05b"},
 ]
 idna = [
     {file = "idna-3.2-py3-none-any.whl", hash = "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a"},
@@ -567,6 +643,10 @@ pillow = [
     {file = "Pillow-8.3.1-pp37-pypy37_pp73-win_amd64.whl", hash = "sha256:1c03e24be975e2afe70dfc5da6f187eea0b49a68bb2b69db0f30a61b7031cee4"},
     {file = "Pillow-8.3.1.tar.gz", hash = "sha256:2cac53839bfc5cece8fdbe7f084d5e3ee61e1303cccc86511d351adcb9e2c792"},
 ]
+ply = [
+    {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
+    {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
+]
 pygments = [
     {file = "Pygments-2.9.0-py3-none-any.whl", hash = "sha256:d66e804411278594d764fc69ec36ec13d9ae9147193a1740cd34d272ca383b8e"},
     {file = "Pygments-2.9.0.tar.gz", hash = "sha256:a18f47b506a429f6f4b9df81bb02beab9ca21d0a5fee38ed15aef65f0545519f"},
@@ -606,6 +686,15 @@ sh = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+smmap = [
+    {file = "smmap-4.0.0-py2.py3-none-any.whl", hash = "sha256:a9a7479e4c572e2e775c404dcd3080c8dc49f39918c2cf74913d30c4c478e3c2"},
+    {file = "smmap-4.0.0.tar.gz", hash = "sha256:7e65386bd122d45405ddf795637b7f7d2b532e7e401d46bbe3fb49b9986d5182"},
+]
+stone = [
+    {file = "stone-3.2.1-py2-none-any.whl", hash = "sha256:2a50866528f60cc7cedd010def733e8ae9d581d17f967278a08059bffaea3c57"},
+    {file = "stone-3.2.1-py3-none-any.whl", hash = "sha256:76235137c09ee88aa53e8c1e666819f6c20ac8064c4ac6c4ee4194eac0e3b7af"},
+    {file = "stone-3.2.1.tar.gz", hash = "sha256:9bc78b40143b4ef33bf569e515408c2996ffebefbb1a897616ebe8aa6f2d7e75"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},

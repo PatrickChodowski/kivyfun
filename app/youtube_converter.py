@@ -91,7 +91,7 @@ class Youtube:
         self.logger.info(f"META - THUMBNAIL URL: {th_url}")
         self.logger.info(f"META - UPLOAD DATE: {song_meta['upload_date']}")
 
-        with open(f"{self.destination_path}/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
+        with open(f"{self.destination_path}/meta/{song_meta['id']}.json", 'w', encoding='utf-8') as fp:
             json.dump(asdict(y_song_meta), fp, ensure_ascii=False)
 
         return y_song_meta

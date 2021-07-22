@@ -13,7 +13,7 @@ package.domain = org.patrickchodowski
 source.dir = ./app
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,mp3,toml,lock,wav,m4a,ogg
+source.include_exts = py,png,jpg,kv,atlas,mp3,toml,lock,wav,m4a,ogg,json
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -35,7 +35,7 @@ version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
-requirements = python3,hostpython3,kivy==2.0.0,kivymd,youtube_dl==2021.6.6,ffpyplayer,Pillow,python-for-android,ffpyplayer_codecs,ffmpeg,openssl,certifi
+requirements = python3,hostpython3,kivy==2.0.0,kivymd,youtube_dl==2021.6.6,Pillow,python-for-android,ffpyplayer_codecs,ffmpeg,openssl,certifi,dropbox,requests==2.16.2,urllib3,chardet,idna,stone,six==1.12.0
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
