@@ -121,10 +121,11 @@ class DownloaderLayout(BoxLayout):
         s.upload_local_as_master_library_dropbox()
 
     def syncronize_down(self):
+        s.build_local_library()
         s.download_master_to_local_master_copy_library_dropbox()
         local_only, master_only = s.compare_local_with_master()
 
-        s.delete_songs_local(local_only)
+        # s.delete_songs_local(local_only)
 
         if master_only.__len__() > 0:
             for lmo in master_only:
