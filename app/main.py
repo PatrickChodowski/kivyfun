@@ -12,7 +12,7 @@ from kivy.uix.label import Label
 from kivy.properties import NumericProperty, StringProperty, ObjectProperty
 from synchronizer import Synchronizer
 
-__version__ = '0.4.0'
+__version__ = '0.4.2'
 
 if platform in ['linux', 'macosx', 'win']:
     AUDIO_OUTPUT = 'm4a'

@@ -18,14 +18,15 @@
             id: download_button
             on_press: root.start_download()
             size_hint_y: None
-            size_hint_x: 0.1
+            size_hint_x: 0.2
             Image:
                 x: self.parent.x
                 y: self.parent.y
                 size: self.parent.size
                 stretch: True
                 source: 'img/down-arrow.png'
-
+    BoxLayout:
+        size_hint_y: None
         Button:
             id: syncronize_up_button
             text: "Push"
